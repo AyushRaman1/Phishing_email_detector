@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phishing Email Detector</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    form {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px 30px;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .safe {
+      background-color: #28a745;
+    }
+
+    .phishing {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Phishing Email Detector</h1>
+
+  <form method="POST" action="/predict">
+    <label for="subject">Email Subject:</label>
+    <input type="text" id="subject" name="subject" required>
+
+    <label for="content">Email Content:</label>
+    <textarea id="content" name="content" rows="8" required></textarea>
+
+    <input type="submit" value="Predict">
+  </form>
+
+  {% if result %}
+    <div class="result {% if 'Phishing' in result %}phishing{% else %}safe{% endif %}">
+      Result: {{ result }}
+    </div>
+  {% endif %}
+
+</body>
+</html>
